@@ -4,7 +4,7 @@ export NEZHA_SERVER="nz.f4i.cn"
 export NEZHA_PORT="5555"
 export NEZHA_TLS="1"
 export NEZHA_KEY="8PolljppbavSr6pLSD"
-export SERVER_PORT="8443"
+export SERVER_PORT="3000"
 
 if [ "$NEZHA_TLS" -eq 0 ]; then
       TLS=''
