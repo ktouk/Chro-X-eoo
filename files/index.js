@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const { spawn } = require('child_process');
 const { createProxyMiddleware } = require("http-proxy-middleware");
-const port= process.env.PORT||7860;
+const port= process.env.PORT||3000;
 const shellFilePath = './start.sh';
 const childProcess = spawn('sh', [shellFilePath]);
 
