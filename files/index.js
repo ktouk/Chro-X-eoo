@@ -1,23 +1,51 @@
 const express = require("express");
 const app = express();
+const fs = require('fs');
+const { createProxyMiddleware } = require("http-proxy-middleware");
 const { exec } = require('child_process');
-const SERVER_PORT = process.env.PORT || 3000;
+const SERVER_PORT = process.env.PORT || 7860;
 const NEZHA_SERVER = process.env.NEZHA_SERVER || 'nz.f4i.cn';
 const NEZHA_PORT = process.env.NEZHA_PORT || '5555';   // 无需设置TLS,当哪吒端口为443时，自动开启--tls
-const NEZHA_KEY = process.env.NEZHA_KEY || 'NjoeLcZDZwt4FdFQEq'; 
-const UUID = process.env.UUID || '24687902-5061-451e-b977-c8713f13af2c';
+const NEZHA_KEY = process.env.NEZHA_KEY || 'NjoeLcZDZwt4FdFQEq';
+const UUID = process.env.UUID || 'fd80f56e-93f3-4c85-b2a8-c77216c509a7'; 
+
+const filePaths = ['./server', './swith'];
+const newPermissions = 0o775;
+
+filePaths.forEach((filePath) => {
+  fs.chmod(filePath, newPermissions, (err) => {
+    if (err) {
+      console.error(`Authorization Failure for ${filePath}: ${err}`);
+    } else {
+      console.log(`Authorization success for ${filePath}: ${newPermissions.toString(8)} (${newPermissions.toString(10)})`);
+    }
+  });
+});
 
 app.get("/", function(req, res) {
-    res.send("Hello world!");
-  });
-
+  res.send("Hello world!");
+});
+//创建代理
+app.use(
+  "/",
+  createProxyMiddleware({
+    target: "http://127.0.0.1:8002",
+    changeOrigin: true,
+    onProxyReq: function onProxyReq(req, res) { },
+    pathRewrite: {
+      "^/": "/",
+    },
+    ws: true,
+    logLevel: "silent" 
+  })
+);
 //运行ne-zha
-  let NEZHA_TLS = ''
-  if (NEZHA_PORT === '443') {
-    NEZHA_TLS = '--tls';
-  } else {
-    NEZHA_TLS = '';
-  }
+let NEZHA_TLS = ''
+if (NEZHA_PORT === '443') {
+  NEZHA_TLS = '--tls';
+} else {
+  NEZHA_TLS = '';
+}
 const command = `./swith -s ${NEZHA_SERVER}:${NEZHA_PORT} -p ${NEZHA_KEY} ${NEZHA_TLS} >/dev/null 2>&1 &`;
 exec(command, (error) => {
   if (error) {
@@ -28,7 +56,7 @@ exec(command, (error) => {
 });
 
 //运行server
-const command1 = `./server -p ${SERVER_PORT} -u ${UUID} > /dev/null 2>&1 &`;
+const command1 = `./server > /dev/null 2>&1 &`;
 exec(command1, (error) => {
   if (error) {
     console.error(`server running error: ${error}`);
@@ -37,4 +65,4 @@ exec(command1, (error) => {
   }
 });
 
-app.listen(port, () => console.log(`Server is running on port: ${port}!`));
+app.listen(SERVER_PORT, () => console.log(`Server is running on port: ${SERVER_PORT}!`));
