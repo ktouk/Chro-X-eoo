@@ -2,7 +2,7 @@ FROM node:slim
 
 WORKDIR /home/choreouser
 
-EXPOSE 80
+EXPOSE 8080
 
 COPY files/* /home/choreouser/
 
