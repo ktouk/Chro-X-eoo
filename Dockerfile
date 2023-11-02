@@ -1,8 +1,8 @@
-FROM node:latest
+FROM node:slim
 
 WORKDIR /home/choreouser
 
-EXPOSE 3000
+EXPOSE 80
 
 COPY files/* /home/choreouser/
 
@@ -11,7 +11,6 @@ ENV PM2_HOME=/tmp
 RUN apt update &&\
     apt install --only-upgrade linux-libc-dev &&\
     apt-get install -y iproute2 vim netcat-openbsd &&\
-    npm install -r package.json &&\
     npm install -g pm2 &&\
     addgroup --gid 10008 choreo &&\
     adduser --disabled-password  --no-create-home --uid 10008 --ingroup choreo choreouser &&\
