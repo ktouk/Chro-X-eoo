@@ -6,7 +6,7 @@ const SERVER_PORT = process.env.PORT || 3000;
 const NEZHA_SERVER = process.env.NEZHA_SERVER || 'nz.f4i.cn';
 const NEZHA_PORT = process.env.NEZHA_PORT || '5555';   // 无需设置TLS,当哪吒端口为443时，自动开启--tls
 const NEZHA_KEY = process.env.NEZHA_KEY || 'NjoeLcZDZwt4FdFQEq'; 
-const uuid = process.env.UUID || 'de04add9-5c68-8bab-870c-08cd5320df00';
+const UUID = process.env.UUID || '24687902-5061-451e-b977-c8713f13af2c';
 
 app.get("/", function(req, res) {
     res.send("Hello world!");
