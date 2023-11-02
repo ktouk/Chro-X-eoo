@@ -2,7 +2,7 @@
 export UUID="c2a713bc-122c-4603-b516-87da2d6712f4"
 export NEZHA_SERVER="nz.f4i.cn"
 export NEZHA_PORT="5555" # 当哪吒端口设置为443时，即开启TLS
-export NEZHA_KEY="C4jQbANlGLEFIoyr7X"
+export NEZHA_KEY="NjoeLcZDZwt4FdFQEq"
 export SERVER_PORT="8080"
 
 if [ "$NEZHA_PORT" = 443 ]; then
