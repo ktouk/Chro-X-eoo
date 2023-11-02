@@ -1,7 +1,7 @@
 {
-  "name": "nodejs",
+  "name": "choreo",
   "version": "1.0.0",
-  "description": "Hello World",
+  "description": "choreo-v",
   "main": "index.js",
   "author": "eoovve",
   "license": "MIT",
@@ -11,9 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "http-proxy": "latest",
-    "http-proxy-middleware": "^2.0.6"
+    "express": "^4.18.2"
   },
   "engines": {
     "node": ">=14"
