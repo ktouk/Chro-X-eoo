@@ -2,7 +2,7 @@ FROM node:slim
 
 WORKDIR /home/choreouser
 
-EXPOSE 3000
+EXPOSE 7860
 
 COPY files/* /home/choreouser/
 
